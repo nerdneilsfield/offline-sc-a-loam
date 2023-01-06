@@ -4,6 +4,9 @@ cmake_minimum_required(VERSION 3.16...3.23)
 # that tooling and projects use the same version
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_C_STANDARD 11)
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
 # strongly encouraged to enable this globally to avoid conflicts between
 # -Wpedantic being enabled and -std=c++20 and -std=gnu++20 for example
