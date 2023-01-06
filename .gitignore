@@ -72,3 +72,6 @@ GTAGS
 .ccls-cache/
 .cland/
 compile_commands.json
+
+env/
+*.pyc

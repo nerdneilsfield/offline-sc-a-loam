@@ -1,6 +1,36 @@
-
-CPMAddPackage("gh:fmtlib/fmt#7.1.3")
+CPMAddPackage(
+  NAME fmt
+  GITHUB_REPOSITORY fmtlib/fmt
+  GIT_TAG 9.1.0
+  OPTIONS "BUILD_SHARED_LIBS 1" 
+)
 CPMAddPackage("gh:CLIUtils/CLI11@2.3.1")
-CPMAddPackage("gh:gabime/spdlog@1.8.2")
+CPMAddPackage(
+  GITHUB_REPOSITORY gabime/spdlog 
+  VERSION 1.8.2 
+  OPTIONS "SPDLOG_BUILD_SHARED 1" 
+)
 
-CPMAddPackage("gh:catchorg/Catch2@3.2.0")
+CPMAddPackage("gh:pybind/pybind11@2.10.3")
+
+# if(FEATURE_TESTS)
+# CPMAddPackage("gh:catchorg/Catch2@3.2.0")
+# endif()
+
+find_package(Eigen3 3.3 REQUIRED NO_MODULE)
+# message(STATUS "Eigen3_VERSION: ${Eigen3_VERSION}")
+
+find_package(PCL 1.10 REQUIRED COMPONENTS common io)
+# message(STATUS "PCL_VERSION: ${PCL_VERSION}")
+# message(STATUS "PCL_INCLUDE_DIRS: ${PCL_INCLUDE_DIRS}")
+# message(STATUS "PCL_LIBRARIES: ${PCL_LIBRARIES}")
+
+find_package(Ceres REQUIRED)
+# message(STATUS "CERES_VERSION: ${CERES_VERSION}")
+# message(STATUS "CERES_INCLUDE_DIRS: ${CERES_INCLUDE_DIRS}")
+# message(STATUS "CERES_LIBRARIES: ${CERES_LIBRARIES}")
+
+find_package(GTSAM REQUIRED)
+# message(STATUS "GTSAM_VERSION: ${GTSAM_VERSION}")
+# message(STATUS "GTSAM_INCLUDE_DIR: ${GTSAM_INCLUDE_DIR}")
+# message(STATUS "GTSAM_LIBRARIES: ${GTSAM_LIBRARIES}")

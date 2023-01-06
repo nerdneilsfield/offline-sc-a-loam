@@ -96,7 +96,8 @@ set(ENABLE_SANITIZER_UNDEFINED_BEHAVIOR OFF)
 set(ENABLE_COVERAGE OFF)
 
 if(FEATURE_TESTS)
-  set(ENABLE_CLANG_TIDY "ENABLE_CLANG_TIDY")
+  # disable clang-tidy since it will crash when use pybind11
+  # set(ENABLE_CLANG_TIDY "ENABLE_CLANG_TIDY")
   set(ENABLE_CPPCHECK "ENABLE_CPPCHECK")
   set(ENABLE_COVERAGE "ENABLE_COVERAGE")
 
@@ -125,27 +126,27 @@ endif()
 # This overwrites `project_options` and sets `project_warnings`
 # uncomment to enable the options. Some of them accept one or more inputs:
 project_options(
-      ENABLE_CACHE
-      ${ENABLE_CPPCHECK}
-      ${ENABLE_CLANG_TIDY}
-      ENABLE_VS_ANALYSIS
-      # ENABLE_CONAN
-      # ENABLE_INTERPROCEDURAL_OPTIMIZATION
-      # ENABLE_NATIVE_OPTIMIZATION
-      ${ENABLE_DOXYGEN}
-      ${ENABLE_COVERAGE}
-      ${ENABLE_SANITIZER_ADDRESS}
-      ${ENABLE_SANITIZER_UNDEFINED_BEHAVIOR}
-      # ENABLE_SANITIZER_THREAD
-      # ENABLE_SANITIZER_MEMORY
-      # ENABLE_PCH
-      # PCH_HEADERS
-      # WARNINGS_AS_ERRORS
-      # ENABLE_INCLUDE_WHAT_YOU_USE
-      # ENABLE_USER_LINKER
-      # ENABLE_BUILD_WITH_TIME_TRACE
-      # ENABLE_UNITY
-      # CONAN_PROFILE ${profile_path}  # passes a profile to conan: see https://docs.conan.io/en/latest/reference/profiles.html
+  ENABLE_CACHE
+  ${ENABLE_CPPCHECK}
+  ${ENABLE_CLANG_TIDY}
+  ENABLE_VS_ANALYSIS
+  # ENABLE_CONAN
+  # ENABLE_INTERPROCEDURAL_OPTIMIZATION
+  # ENABLE_NATIVE_OPTIMIZATION
+  ${ENABLE_DOXYGEN}
+  ${ENABLE_COVERAGE}
+  ${ENABLE_SANITIZER_ADDRESS}
+  ${ENABLE_SANITIZER_UNDEFINED_BEHAVIOR}
+  # ENABLE_SANITIZER_THREAD
+  # ENABLE_SANITIZER_MEMORY
+  # ENABLE_PCH
+  # PCH_HEADERS
+  # WARNINGS_AS_ERRORS
+  # ENABLE_INCLUDE_WHAT_YOU_USE
+  # ENABLE_USER_LINKER
+  # ENABLE_BUILD_WITH_TIME_TRACE
+  # ENABLE_UNITY
+  # CONAN_PROFILE ${profile_path}  # passes a profile to conan: see https://docs.conan.io/en/latest/reference/profiles.html
 )
 
 # add dependencies
@@ -155,6 +156,7 @@ include(Dependencies.cmake)
 add_subdirectory(configured_files)
 
 # Adding the src:
+include_directories(src)
 add_subdirectory(src)
 
 # Adding the tests:
@@ -164,12 +166,12 @@ if(FEATURE_TESTS)
   add_subdirectory(test)
 endif()
 
-if(FEATURE_TESTS)
-# option(ENABLE_FUZZING "Enable the fuzz tests" OFF)
-# if(ENABLE_FUZZING)
-  message(AUTHOR_WARNING "Building Fuzz Tests, using fuzzing sanitizer https://www.llvm.org/docs/LibFuzzer.html")
-  add_subdirectory(fuzz_test)
-endif()
+# if(FEATURE_TESTS)
+# # option(ENABLE_FUZZING "Enable the fuzz tests" OFF)
+# # if(ENABLE_FUZZING)
+#   message(AUTHOR_WARNING "Building Fuzz Tests, using fuzzing sanitizer https://www.llvm.org/docs/LibFuzzer.html")
+#   add_subdirectory(fuzz_test)
+# endif()
 
 # If MSVC is being used, and ASAN is enabled, we need to set the debugger environment
 # so that it behaves well with MSVC's debugger, and we can run the target from visual studio
